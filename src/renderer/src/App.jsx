@@ -1,14 +1,20 @@
-const App = () => {
-  const ipcHandle = () => window.electron.ipcRenderer.send('ping')
+import styled from 'styled-components'
+import Router from './Router'
+import './assets/global.css'
 
+const AppContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+`
+
+const App = () => {
   return (
-    <>
-      <div className="action">
-        <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-          Send IPC
-        </a>
-      </div>
-    </>
+    <AppContainer>
+      <Router />
+    </AppContainer>
   )
 }
 

@@ -1,13 +1,15 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, globalShortcut } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
+let mainWindow
+
 function createWindow() {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+  mainWindow = new BrowserWindow({
+    width: 1280,
+    height: 1024,
     show: false,
     autoHideMenuBar: true,
     resizable: false,
@@ -51,10 +53,19 @@ app.whenReady().then(() => {
   })
 
   // IPC test
-  ipcMain.on('ping', () => {
-    hello()
-  })
+  // ipcMain.on('ping', () => console.log('pong'))
+
   createWindow()
+
+  // DevTools
+  globalShortcut.register('Control+Shift+I', () => {
+    const isDevToolsOpened = mainWindow.webContents.isDevToolsOpened();
+    if (isDevToolsOpened) {
+      mainWindow.webContents.closeDevTools()
+    } else {
+      mainWindow.webContents.openDevTools()
+    }
+  });
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
@@ -72,9 +83,7 @@ app.on('window-all-closed', () => {
   }
 })
 
-// In this file you can include the rest of your app"s specific main process
-// code. You can also put them in separate files and require them here.
-
-const hello = () => {
-  console.log('Hello')
-}
+// 애플리케이션 종료 시 단축키 해제
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll()
+})
