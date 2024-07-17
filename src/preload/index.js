@@ -14,7 +14,10 @@ if (process.contextIsolated) {
   } catch (error) {
     console.error(error)
   }
-} else {
-  window.electron = electronAPI
-  window.api = api
 }
+
+contextBridge.exposeInMainWorld('versions', {
+  node: process.versions.nod,
+  chrome: process.versions.chrome,
+  electron: process.versions.electron
+})

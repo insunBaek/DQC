@@ -3,8 +3,9 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
-let mainWindow
+import { dbAuth } from '../ipc/dbAuth'
 
+let mainWindow
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
@@ -16,7 +17,9 @@ function createWindow() {
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: false,
+      nodeIntegration: false, // Node.js 통합
+      contextIsolation: true // 컨텍스트 분리
     }
   })
 
@@ -52,8 +55,8 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test
-  // ipcMain.on('ping', () => console.log('pong'))
+  // DB Login Authentication
+  dbAuth()
 
   createWindow()
 

@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import ErrorMsg from '../components/msg/ErrorMsg'
 import styled from 'styled-components'
+import ErrorMsg from '../components/msg/ErrorMsg'
 
 const Container = styled.div`
   display: flex;
@@ -53,6 +53,7 @@ const Login = () => {
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
+  const navi = useNavigate();
 
   const handleErrorOpenModal = () => {
     setIsErrorModalOpen(true)
@@ -62,18 +63,25 @@ const Login = () => {
     setIsErrorModalOpen(false)
   }
 
-  const navi = useNavigate()
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('ID:', id)
-    console.log('Password:', password)
-
-    if (id === 'navi' && password === 'admin') {
-      // ipcHandle()
-      navi('/home')
-    } else {
-      handleErrorOpenModal()
+  useEffect(() => {
+    const handleConnectDBResponse = (event, result) => {
+      if (result.success) {
+        navi('/home')
+      } else {
+        handleErrorOpenModal()
+      }
     }
+
+    window.electron.ipcRenderer.on('db-auth-response', handleConnectDBResponse)
+
+    return () => {
+      window.electron.ipcRenderer.removeListener('db-auth-response', handleConnectDBResponse)
+    }
+  }, [navi])
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    window.electron.ipcRenderer.send('db-auth', id, password)
   }
 
   return (
