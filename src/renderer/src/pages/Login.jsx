@@ -2,23 +2,25 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import ErrorMsg from '../components/msg/ErrorMsg'
+import { TextField } from '@mui/material'
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f0f0f0;
+  width: 100%;
+  height: 100%;
 `
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  width: 30%;
   padding: 20px;
-  background-color: #ffffff;
+  gap: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  background-color: white;
 `
 
 const Title = styled.div`
@@ -27,25 +29,19 @@ const Title = styled.div`
   margin-bottom: 1rem;
 `
 
-const Input = styled.input`
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-`
-
 const Button = styled.button`
   padding: 10px;
-  background-color: #007bff;
+  background-color: var(--color-info);
   color: #ffffff;
   border: none;
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
 
+  /* font-family: ; */
+
   &:hover {
-    background-color: #0056b3;
+    background-color: var(--color-info-cursor);
   }
 `
 
@@ -53,7 +49,7 @@ const Login = () => {
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
-  const navi = useNavigate();
+  const navi = useNavigate()
 
   const handleErrorOpenModal = () => {
     setIsErrorModalOpen(true)
@@ -88,18 +84,29 @@ const Login = () => {
     <Container>
       <Form onSubmit={handleSubmit}>
         <Title>Login</Title>
-        <Input type="text" placeholder="ID" value={id} onChange={(e) => setId(e.target.value)} />
-        <Input
+        <TextField
+          id="outlined-basic"
+          label="ID"
+          variant="outlined"
+          type="text"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+          fullWidth
+        />
+        <TextField
+          id="outlined-basic"
+          label="Password"
+          variant="outlined"
           type="password"
-          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          fullWidth
         />
         <Button type="submit">Sign In</Button>
       </Form>
 
       {isErrorModalOpen && (
-        <ErrorMsg message="ID or Password가 틀립니다." onClose={handleErrorCloseModal} />
+        <ErrorMsg message="ID/Password가 틀립니다." onClose={handleErrorCloseModal} />
       )}
     </Container>
   )

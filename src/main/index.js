@@ -12,13 +12,13 @@ function createWindow() {
     width: 1280,
     height: 1024,
     show: false,
-    autoHideMenuBar: true,
-    resizable: false,
+    autoHideMenuBar: true, // window 메뉴바 숨김
+    resizable: true, // 앱 크기 조절
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
-      nodeIntegration: false, // Node.js 통합
+      nodeIntegration: true, // Node.js 통합
       contextIsolation: true // 컨텍스트 분리
     }
   })
