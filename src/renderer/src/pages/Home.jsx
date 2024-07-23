@@ -12,7 +12,7 @@ const HomeContainer = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
 `
 
 const Home = () => {

@@ -6,9 +6,9 @@ const AppContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #c3e0e0;
   width: 100%;
   height: 100%;
+  background-color: #f6f6f6;
 `
 
 const App = () => {
