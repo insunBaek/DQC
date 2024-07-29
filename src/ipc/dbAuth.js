@@ -9,7 +9,7 @@ export const dbAuth = () => {
         port: 3306,
         user: id,
         password: password,
-        database: 'sky'
+        database: 'tmplDB'
       })
 
       await connection.end()
