@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const WorkUnitStyled = styled.div`
   width: 150px;
   height: 150px;
-  background-color: #1e88e5;
+  background-color: RED;
   margin: 10px;
   display: flex;
   flex-direction: column;
@@ -40,7 +40,7 @@ const DeleteButton = styled.button`
   position: absolute;
   top: 5px;
   right: 5px;
-  background: red;
+  background: #ffd700;
   color: white;
   border: none;
   border-radius: 50%;
@@ -63,7 +63,7 @@ const WorkUnit = ({ description, interval, sqlID, programID, onClick, onDelete }
           onDelete()
         }}
       >
-        X
+        x
       </DeleteButton>
       <Description>{description}</Description>
       <Detail>Interval: {interval}</Detail>

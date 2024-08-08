@@ -61,7 +61,7 @@ const Login = () => {
 
   useEffect(() => {
     const handleConnectDBResponse = (event, result) => {
-      if (result.success) {
+      if (!result.success) {
         navi('/home')
       } else {
         handleErrorOpenModal()

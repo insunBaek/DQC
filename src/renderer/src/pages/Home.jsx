@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Tabs, TabPanel } from '../components/Tabs'
 
 import Work from './Work'
-import SQL from './SQL'
+import Sql from './Sql'
 import Program from './Program'
 
 const HomeContainer = styled.div`
@@ -23,7 +23,7 @@ const Home = () => {
           <Work></Work>
         </TabPanel>
         <TabPanel label="SQL">
-          <SQL></SQL>
+          <Sql></Sql>
         </TabPanel>
         <TabPanel label="Program">
           <Program></Program>

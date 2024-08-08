@@ -1,3 +1,5 @@
+import { RecoilRoot } from 'recoil'
+
 import styled from 'styled-components'
 import Router from './Router'
 import GlobalStyle from './assets/style/globalStyles'
@@ -13,10 +15,12 @@ const AppContainer = styled.div`
 
 const App = () => {
   return (
-    <AppContainer>
-      <GlobalStyle />
-      <Router />
-    </AppContainer>
+    <RecoilRoot>
+      <AppContainer>
+        <GlobalStyle />
+        <Router />
+      </AppContainer>
+    </RecoilRoot>
   )
 }
 

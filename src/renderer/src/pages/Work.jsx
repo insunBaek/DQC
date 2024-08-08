@@ -15,11 +15,13 @@ const Container = styled.div`
   background-color: lightgrey;
   border-radius: 8px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
   gap: 10px;
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
+  align-items: center;
+  justify-items: center;
 
   &::-webkit-scrollbar {
     display: none;
@@ -31,6 +33,7 @@ const ContextMenu = styled.ul`
   position: absolute;
   background-color: white;
   border: 1px solid black;
+  border-radius: 8px;
   list-style: none;
   padding: 10px;
   margin: 0;
@@ -44,18 +47,19 @@ const ContextMenu = styled.ul`
 const ContextMenuItem = styled.li`
   border-left: 3px solid transparent;
   transition: ease 0.2s;
-
+  border-radius: 8px;
   &:hover {
-    background: #ce93d8;
-    border-left: 3px solid #9c27b0;
+    background: #ffd700;
+    border-left: 3px solid #ffd700;
   }
 
   & > a {
     display: block;
     padding: 10px;
-    color: #b0bec5;
+    color: black;
     text-decoration: none;
     transition: ease 0.2s;
+    border-radius: 1rem;
 
     &:hover {
       color: #ffffff;
@@ -82,34 +86,7 @@ const Work = () => {
     { description: 'Task 2', interval: 20, sqlID: 102, programID: 202 },
     { description: 'Task 3', interval: 30, sqlID: 103, programID: 203 },
     { description: 'Task 4', interval: 40, sqlID: 104, programID: 204 },
-    { description: 'Task 5', interval: 50, sqlID: 105, programID: 205 },
-    { description: 'Task 6', interval: 60, sqlID: 106, programID: 206 },
-    { description: 'Task 7', interval: 70, sqlID: 107, programID: 207 },
-    { description: 'Task 8', interval: 80, sqlID: 108, programID: 208 },
-    { description: 'Task 1', interval: 10, sqlID: 101, programID: 201 },
-    { description: 'Task 2', interval: 20, sqlID: 102, programID: 202 },
-    { description: 'Task 3', interval: 30, sqlID: 103, programID: 203 },
-    { description: 'Task 4', interval: 40, sqlID: 104, programID: 204 },
-    { description: 'Task 5', interval: 50, sqlID: 105, programID: 205 },
-    { description: 'Task 6', interval: 60, sqlID: 106, programID: 206 },
-    { description: 'Task 7', interval: 70, sqlID: 107, programID: 207 },
-    { description: 'Task 8', interval: 80, sqlID: 108, programID: 208 },
-    { description: 'Task 8', interval: 80, sqlID: 108, programID: 208 },
-    { description: 'Task 1', interval: 10, sqlID: 101, programID: 201 },
-    { description: 'Task 2', interval: 20, sqlID: 102, programID: 202 },
-    { description: 'Task 3', interval: 30, sqlID: 103, programID: 203 },
-    { description: 'Task 4', interval: 40, sqlID: 104, programID: 204 },
-    { description: 'Task 5', interval: 50, sqlID: 105, programID: 205 },
-    { description: 'Task 6', interval: 60, sqlID: 106, programID: 206 },
-    { description: 'Task 7', interval: 70, sqlID: 107, programID: 207 },
-    { description: 'Task 8', interval: 80, sqlID: 108, programID: 208 },
-    { description: 'Task 1', interval: 10, sqlID: 101, programID: 201 },
-    { description: 'Task 2', interval: 20, sqlID: 102, programID: 202 },
-    { description: 'Task 3', interval: 30, sqlID: 103, programID: 203 },
-    { description: 'Task 4', interval: 40, sqlID: 104, programID: 204 },
-    { description: 'Task 5', interval: 50, sqlID: 105, programID: 205 },
-    { description: 'Task 6', interval: 60, sqlID: 106, programID: 206 },
-    { description: 'Task 7', interval: 70, sqlID: 107, programID: 207 }
+
   ])
 
   const handleContextMenu = (event) => {
@@ -156,10 +133,7 @@ const Work = () => {
       <Container onContextMenu={handleContextMenu} onClick={handleClick}>
         <ContextMenu show={showMenu} style={{ top: menuPosition.y, left: menuPosition.x }}>
           <ContextMenuItem>
-            <a href="#">우클릭메뉴 항목 1</a>
-          </ContextMenuItem>
-          <ContextMenuItem>
-            <a href="#">우클릭메뉴 항목 2</a>
+            <a href="#">작업추가</a>
           </ContextMenuItem>
         </ContextMenu>
         {workUnits.map((workUnit, index) => (
@@ -177,6 +151,15 @@ const Work = () => {
           <h2>작업내용 수정</h2>
           {currentWorkUnit !== null && (
             <>
+              <label>
+                ID:
+                <input
+                  type="text"
+                  name="description"
+                  value={workUnits[currentWorkUnit].description}
+                  onChange={handleInputChange}
+                />
+              </label>
               <label>
                 Description:
                 <input
